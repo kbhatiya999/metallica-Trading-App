@@ -76,11 +76,11 @@ public class TradeRestController
 //	public ResponseEntity<Void> deleteTrade(@RequestParam("tradeId") int tradeId){
 //		ResponseEntity<Void> re = null;
 //	
-//			Trade t = tradeRepo.findTradeByTradeId(tradeId);
+//			Trade t = tradeRepo.findTradeById(tradeId);
 //			System.out.println(t);
 //			
 //			if(t != null){
-//				tradeRepo.deleteByTradeId(tradeId);
+//				tradeRepo.deleteById(tradeId);
 //				re = new ResponseEntity<>(HttpStatus.OK);
 //			}
 //			else{
@@ -101,22 +101,23 @@ public class TradeRestController
 
 
 
-//@RequestMapping(path="/trade" ,method=RequestMethod.PUT)
-//@Transactional
-//public ResponseEntity<Trade> updateTrade(@RequestBody Trade trade)
-//{
-//	ResponseEntity<Trade> re=null;
-//	try {
-//		Trade t=tradeRepo.getOne(trade.getId());
-//		t.setName(product.getName());
-//		t.setPrice(product.getPrice());
-//		re=new ResponseEntity<Product>(p,HttpStatus.OK);
-//	} catch (EntityNotFoundException e) {
-//		re=new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
-//	}
-//	
-//	return re;
-//} 
+@RequestMapping(path="/trade" ,method=RequestMethod.PUT)
+@Transactional
+public ResponseEntity<Trade> updateTrade(@RequestBody Trade trade)
+{
+	ResponseEntity<Trade> re=null;
+	try {
+		Trade t=tradeRepo.getOne(trade.getTradeId());
+		t.setPrice(trade.getPrice());
+		t.setQuantity(trade.getQuantity());
+		
+		re=new ResponseEntity<Trade>(t,HttpStatus.OK);
+	} catch (EntityNotFoundException e) {
+		re=new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+	}
+	
+	return re;
+} 
 
 }
 

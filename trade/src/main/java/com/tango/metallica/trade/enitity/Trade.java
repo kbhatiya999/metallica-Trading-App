@@ -1,11 +1,14 @@
 package com.tango.metallica.trade.enitity;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 @Entity
 public class Trade {
 	
@@ -18,7 +21,8 @@ public class Trade {
 	private int quantity;
 	private int price;
 	private int commodityid;
-	private Date dateOfOpenning;
+	@JsonFormat(pattern="yyyy-MM-dd")
+	private Date dateOfOpening;
 	
 	
 	public int getTradeId() {
@@ -51,11 +55,40 @@ public class Trade {
 	public void setCommodityid(int commodityid) {
 		this.commodityid = commodityid;
 	}
-	public Date getDateOfOpenning() {
-		return dateOfOpenning;
+	public Date getDateOfOpening() {
+		return dateOfOpening;
 	}
-	public void setDateOfOpenning(Date dateOfOpenning) {
-		this.dateOfOpenning = dateOfOpenning;
+	public void setDateOfOpening(Date dateOfOpening) {
+		this.dateOfOpening = dateOfOpening;
+	}
+	public Trade(int traderId, int quantity, int price, int commodityid, Date dateOfOpening) {
+		super();
+		this.traderId = traderId;
+		this.quantity = quantity;
+		this.price = price;
+		this.commodityid = commodityid;
+		this.dateOfOpening = dateOfOpening;
+	}
+	public Trade() {
+		super();
+	}
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Trade [tradeId=");
+		builder.append(tradeId);
+		builder.append(", traderId=");
+		builder.append(traderId);
+		builder.append(", quantity=");
+		builder.append(quantity);
+		builder.append(", price=");
+		builder.append(price);
+		builder.append(", commodityid=");
+		builder.append(commodityid);
+		builder.append(", dateOfOpening=");
+		builder.append(dateOfOpening);
+		builder.append("]");
+		return builder.toString();
 	}
 	
 	

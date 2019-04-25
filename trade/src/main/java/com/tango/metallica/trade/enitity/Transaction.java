@@ -15,8 +15,7 @@ public class Transaction {
 	private int fromId;
 	private int toLocationId;
 	private int fromLocationId;
-	private String password;
-	private int roleId;
+	
 	public int getTransactionId() {
 		return transactionId;
 	}
@@ -47,16 +46,5 @@ public class Transaction {
 	public void setFromLocationId(int fromLocationId) {
 		this.fromLocationId = fromLocationId;
 	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public int getRoleId() {
-		return roleId;
-	}
-	public void setRoleId(int roleId) {
-		this.roleId = roleId;
-	}
+
 }
