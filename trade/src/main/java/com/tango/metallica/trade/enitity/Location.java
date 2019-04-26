@@ -13,7 +13,7 @@ public class Location {
 	private int locationId;
 	private String cityName; 
 	private String stateName;
-	private int countryName;
+	private String countryName;
 	public int getLocationId() {
 		return locationId;
 	}
@@ -32,10 +32,10 @@ public class Location {
 	public void setStateName(String stateName) {
 		this.stateName = stateName;
 	}
-	public int getCountryName() {
+	public String getCountryName() {
 		return countryName;
 	}
-	public void setCountryName(int countryName) {
+	public void setCountryName(String countryName) {
 		this.countryName = countryName;
 	}
 	

@@ -57,16 +57,12 @@ public class TradeRestController
 	public ResponseEntity<Void> addTrade(@RequestBody Trade trade){
 		ResponseEntity<Void> re = null;
 	
-			Trade t = tradeRepo.findTradeByCommodity(trade.getCommodity());
-			System.out.println(t);
 			
-			if(t == null){
+			
+		
 				tradeRepo.save(trade);
 				re = new ResponseEntity<>(HttpStatus.CREATED);
-			}
-			else{
-				re= new ResponseEntity<>(HttpStatus.CONFLICT);
-			}
+			
 
 	return re;	
 	}

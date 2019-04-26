@@ -24,7 +24,7 @@ public class Transaction {
 	private Trade trade; 
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(referencedColumnName="userId")
-	private UserDetails from;
+	private UserDetails to;
 	//private int toLocationId;
 	//private int fromLocationId;
 	//private int quantity;
@@ -47,10 +47,10 @@ public class Transaction {
 		this.trade = trade;
 	}
 	public UserDetails getFrom() {
-		return from;
+		return to;
 	}
 	public void setFrom(UserDetails from) {
-		this.from = from;
+		this.to = from;
 	}
 	public Date getDateOfPurchase() {
 		return dateOfPurchase;
@@ -64,7 +64,7 @@ public class Transaction {
 	public Transaction(Trade trade, UserDetails from, Date dateOfPurchase) {
 		super();
 		this.trade = trade;
-		this.from = from;
+		this.to = from;
 		this.dateOfPurchase = dateOfPurchase;
 	}
 	@Override
@@ -75,7 +75,7 @@ public class Transaction {
 		builder.append(", trade=");
 		builder.append(trade);
 		builder.append(", from=");
-		builder.append(from);
+		builder.append(to);
 		builder.append(", dateOfPurchase=");
 		builder.append(dateOfPurchase);
 		builder.append("]");
