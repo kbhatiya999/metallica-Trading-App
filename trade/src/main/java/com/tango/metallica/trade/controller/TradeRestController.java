@@ -57,7 +57,7 @@ public class TradeRestController
 	public ResponseEntity<Void> addTrade(@RequestBody Trade trade){
 		ResponseEntity<Void> re = null;
 	
-			Trade t = tradeRepo.findTradeBycommodityid(trade.getCommodityid());
+			Trade t = tradeRepo.findTradeByCommodity(trade.getCommodity());
 			System.out.println(t);
 			
 			if(t == null){

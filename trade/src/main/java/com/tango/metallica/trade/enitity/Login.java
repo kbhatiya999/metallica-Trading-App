@@ -1,9 +1,12 @@
 package com.tango.metallica.trade.enitity;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -15,10 +18,10 @@ public class Login {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int loginId;
 	
-	@OneToOne
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(referencedColumnName="userId")
 	private UserDetails user;
-	@OneToOne
-	private Role role;
+
 	public String getUsername() {
 		return username;
 	}
@@ -45,13 +48,5 @@ public class Login {
 	public void setUser(UserDetails user) {
 		this.user = user;
 	}
-	public Role getRole() {
-		return role;
-	}
-	public void setRole(Role role) {
-		this.role = role;
-	}
-	
-	
 	
 }

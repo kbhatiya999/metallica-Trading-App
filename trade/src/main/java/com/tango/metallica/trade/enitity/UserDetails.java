@@ -1,5 +1,7 @@
 package com.tango.metallica.trade.enitity;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 @Entity
-public class UserDetails {
+public class UserDetails implements Serializable {
 	private String name; 
 	private String phoneNumber;
 	private String email;

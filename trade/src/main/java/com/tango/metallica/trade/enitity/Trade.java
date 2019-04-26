@@ -4,9 +4,12 @@ package com.tango.metallica.trade.enitity;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 @Entity
@@ -17,10 +20,14 @@ public class Trade {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int tradeId;
 	
-	private int traderId;
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(referencedColumnName="userId")
+	private UserDetails trader;
 	private int quantity;
 	private int price;
-	private int commodityid;
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(referencedColumnName="commodityId")
+	private Commodity commodity;
 	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date dateOfOpening;
 	
@@ -31,11 +38,11 @@ public class Trade {
 	public void setTradeId(int tradeId) {
 		this.tradeId = tradeId;
 	}
-	public int getTraderId() {
-		return traderId;
+	public UserDetails getTrader() {
+		return trader;
 	}
-	public void setTraderId(int traderId) {
-		this.traderId = traderId;
+	public void setTraderId(UserDetails traderId) {
+		this.trader = traderId;
 	}
 	public int getQuantity() {
 		return quantity;
@@ -49,11 +56,11 @@ public class Trade {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	public int getCommodityid() {
-		return commodityid;
+	public Commodity getCommodity() {
+		return commodity;
 	}
-	public void setCommodityid(int commodityid) {
-		this.commodityid = commodityid;
+	public void setCommodity(Commodity commodityid) {
+		this.commodity = commodityid;
 	}
 	public Date getDateOfOpening() {
 		return dateOfOpening;
@@ -61,12 +68,12 @@ public class Trade {
 	public void setDateOfOpening(Date dateOfOpening) {
 		this.dateOfOpening = dateOfOpening;
 	}
-	public Trade(int traderId, int quantity, int price, int commodityid, Date dateOfOpening) {
+	public Trade(UserDetails traderId, int quantity, int price, Commodity commodityid, Date dateOfOpening) {
 		super();
-		this.traderId = traderId;
+		this.trader = traderId;
 		this.quantity = quantity;
 		this.price = price;
-		this.commodityid = commodityid;
+		this.commodity = commodityid;
 		this.dateOfOpening = dateOfOpening;
 	}
 	public Trade() {
@@ -78,13 +85,13 @@ public class Trade {
 		builder.append("Trade [tradeId=");
 		builder.append(tradeId);
 		builder.append(", traderId=");
-		builder.append(traderId);
+		builder.append(trader);
 		builder.append(", quantity=");
 		builder.append(quantity);
 		builder.append(", price=");
 		builder.append(price);
 		builder.append(", commodityid=");
-		builder.append(commodityid);
+		builder.append(commodity);
 		builder.append(", dateOfOpening=");
 		builder.append(dateOfOpening);
 		builder.append("]");

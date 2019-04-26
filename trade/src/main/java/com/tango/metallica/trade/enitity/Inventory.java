@@ -13,6 +13,7 @@ public class Inventory {
 	private int inventoryId;
 	private String inventoryName; 
 	private int quantity;
+
 	public int getInventoryId() {
 		return inventoryId;
 	}
