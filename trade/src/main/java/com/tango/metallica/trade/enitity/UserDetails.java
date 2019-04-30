@@ -19,8 +19,7 @@ public class UserDetails implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int userId;
-	@OneToOne
-	private Inventory inventory;
+	
 	public String getName() {
 		return name;
 	}
@@ -51,12 +50,6 @@ public class UserDetails implements Serializable {
 	}
 	public void setLocation(Location location) {
 		this.location = location;
-	}
-	public Inventory getInventory() {
-		return inventory;
-	}
-	public void setInventory(Inventory inventory) {
-		this.inventory = inventory;
 	}
 	
 	

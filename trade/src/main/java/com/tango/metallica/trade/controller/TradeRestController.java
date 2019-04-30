@@ -1,6 +1,8 @@
 package com.tango.metallica.trade.controller;
 
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -50,7 +52,9 @@ public class TradeRestController
 		
 	@RequestMapping(path="/trades", method=RequestMethod.GET)
 	public List<Trade> findAllTrade(){
-		return tradeRepo.findAll();
+		List<Trade> result = tradeRepo.findTradeByTradeStatus(0);
+//		result.stream().filter(t->((Integer)t.getTradeStatus()).equals(1)).collect(Collectors.toList());
+		return result;
 	}
 	
 	@RequestMapping(path="/trade", method=RequestMethod.POST)
@@ -58,7 +62,7 @@ public class TradeRestController
 		ResponseEntity<Void> re = null;
 	
 			
-			
+				trade.setTradeStatus(0);
 		
 				tradeRepo.save(trade);
 				re = new ResponseEntity<>(HttpStatus.CREATED);

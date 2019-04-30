@@ -30,8 +30,26 @@ public class Trade {
 	private Commodity commodity;
 	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date dateOfOpening;
+	private String tradeType;
+	private int tradeStatus;
 	
 	
+	
+	public String getTradeType() {
+		return tradeType;
+	}
+	public void setTradeType(String tradeType) {
+		this.tradeType = tradeType;
+	}
+	public int getTradeStatus() {
+		return tradeStatus;
+	}
+	public void setTradeStatus(int tradeStatus) {
+		this.tradeStatus = tradeStatus;
+	}
+	public void setTrader(UserDetails trader) {
+		this.trader = trader;
+	}
 	public int getTradeId() {
 		return tradeId;
 	}
@@ -68,13 +86,17 @@ public class Trade {
 	public void setDateOfOpening(Date dateOfOpening) {
 		this.dateOfOpening = dateOfOpening;
 	}
-	public Trade(UserDetails traderId, int quantity, int price, Commodity commodityid, Date dateOfOpening) {
+	
+	public Trade(UserDetails trader, int quantity, int price, Commodity commodity, Date dateOfOpening, String tradeType,
+			int tradeStatus) {
 		super();
-		this.trader = traderId;
+		this.trader = trader;
 		this.quantity = quantity;
 		this.price = price;
-		this.commodity = commodityid;
+		this.commodity = commodity;
 		this.dateOfOpening = dateOfOpening;
+		this.tradeType = tradeType;
+		this.tradeStatus = tradeStatus;
 	}
 	public Trade() {
 		super();
@@ -84,19 +106,24 @@ public class Trade {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Trade [tradeId=");
 		builder.append(tradeId);
-		builder.append(", traderId=");
+		builder.append(", trader=");
 		builder.append(trader);
 		builder.append(", quantity=");
 		builder.append(quantity);
 		builder.append(", price=");
 		builder.append(price);
-		builder.append(", commodityid=");
+		builder.append(", commodity=");
 		builder.append(commodity);
 		builder.append(", dateOfOpening=");
 		builder.append(dateOfOpening);
+		builder.append(", tradeType=");
+		builder.append(tradeType);
+		builder.append(", tradeStatus=");
+		builder.append(tradeStatus);
 		builder.append("]");
 		return builder.toString();
 	}
+
 	
 	
 }
