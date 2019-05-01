@@ -159,7 +159,7 @@ public class SendTradeMessages
 			e.printStackTrace();
 		}
          
-        //System.out.println("JCG printing@@ '" + message.getText() + "'");
+       // System.out.println("JCG printing@@ '" + message.getText() + "'");
         try {
 			connection.close();
 		} catch (JMSException e) {

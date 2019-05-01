@@ -6,12 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tango.metallica.notifications.SendTransactionMessages;
 import com.tango.metallica.trade.enitity.Inventory;
 import com.tango.metallica.trade.enitity.Trade;
 import com.tango.metallica.trade.enitity.Transaction;
@@ -33,6 +33,7 @@ public class TransactionRestController {
 	UserDetailsRepo userDetailsRepo;
 	@Autowired
 	InventoryRepo inventoryRepo;
+	SendTransactionMessages stm = new SendTransactionMessages();
 	
 		@RequestMapping(path="/transactions", method=RequestMethod.GET)
 	public List<Transaction> findAllTransactions(){
@@ -105,6 +106,7 @@ public class TransactionRestController {
 		        
 				transactionRepo.save(transaction);
 				re = new ResponseEntity<>(HttpStatus.CREATED);
+				stm.sendTransactionMessage(transaction.getTransactionId());
 		System.out.println(transaction);
 	return re;	
 	}

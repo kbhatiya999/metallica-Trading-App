@@ -1,6 +1,9 @@
 package com.tango.metallica.trade.controller;
 
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,34 +15,37 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tango.metallica.notifications.SendTradeMessages;
+import com.tango.metallica.trade.enitity.Commodity;
+import com.tango.metallica.trade.enitity.Location;
 import com.tango.metallica.trade.enitity.Trade;
+import com.tango.metallica.trade.repo.CommodityRepo;
+import com.tango.metallica.trade.repo.LocationRepo;
 import com.tango.metallica.trade.repo.TradeRepo;
 
 @RestController
 @CrossOrigin("*")
 @RequestMapping(path="/api/")
-public class TradeRestController
+public class LocationRestController
 {
 
 	@Autowired
-	TradeRepo tradeRepo;
-	SendTradeMessages scm = new SendTradeMessages();
-	@RequestMapping(path="/trade/{id}", method=RequestMethod.GET)
-	public ResponseEntity<Trade> findTrade(@PathVariable("id") int id){
+	LocationRepo locationRepo;
+	
+	@RequestMapping(path="/location/{id}", method=RequestMethod.GET)
+	public ResponseEntity<Location> findLocation(@PathVariable("id") int id){
 		
-		ResponseEntity<Trade> re = null;
+		ResponseEntity<Location> re = null;
 		
-		System.out.println("FInd Trade in controller ..." + id);
-		Trade t = tradeRepo.findTradeByTradeId(id);
+		System.out.println("FInd Location in controller ..." + id);
+		Location t = locationRepo.findLocationByLocationId(id);
 		if(t == null){
 			re = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
 		else{
 			re = new ResponseEntity<>(t, HttpStatus.OK);
-			
 		}
 		
 		System.out.println(t);
@@ -48,24 +54,20 @@ public class TradeRestController
 
 	}
 		
-	@RequestMapping(path="/trades", method=RequestMethod.GET)
-	public List<Trade> findAllTrade(){
-		List<Trade> result = tradeRepo.findTradeByTradeStatus(0);
+	@RequestMapping(path="/locations", method=RequestMethod.GET)
+	public List<Location> findAllLocations(){
+		List<Location> result = locationRepo.findAll();
 //		result.stream().filter(t->((Integer)t.getTradeStatus()).equals(1)).collect(Collectors.toList());
 		return result;
 	}
 	
-	@RequestMapping(path="/trade", method=RequestMethod.POST)
-	public ResponseEntity<Void> addTrade(@RequestBody Trade trade){
+	@RequestMapping(path="/location", method=RequestMethod.POST)
+	public ResponseEntity<Void> addLocation(@RequestBody Location location){
 		ResponseEntity<Void> re = null;
-	
-			
-				trade.setTradeStatus(0);
 		
-				tradeRepo.save(trade);
+				locationRepo.save(location);
 				re = new ResponseEntity<>(HttpStatus.CREATED);
-		int info = trade.getTradeId();
-		scm.sendCreateMessage(info);
+			
 
 	return re;	
 	}
@@ -90,10 +92,9 @@ public class TradeRestController
 //	}
 	
 	
-		@RequestMapping(path="/trade/{tradeId}", method=RequestMethod.DELETE)
-	public ResponseEntity<Void> deleteTrade(@PathVariable("tradeId") int tradeId){
-		tradeRepo.deleteById(tradeId);
-		scm.sendDeleteMessage(tradeId);
+		@RequestMapping(path="/location/{locationId}", method=RequestMethod.DELETE)
+	public ResponseEntity<Void> deleteLocation(@PathVariable("locationId") int locationId){
+		locationRepo.deleteById(locationId);
 		return new ResponseEntity<>(HttpStatus.OK);
 	} 
 	
@@ -101,26 +102,7 @@ public class TradeRestController
 
 
 
-@RequestMapping(path="/trade" ,method=RequestMethod.PUT)
-@Transactional
-public ResponseEntity<Trade> updateTrade(@RequestBody Trade trade)
-{
-	ResponseEntity<Trade> re=null;
-	try {
-		Trade t=tradeRepo.getOne(trade.getTradeId());
-		t.setPrice(trade.getPrice());
-		t.setQuantity(trade.getQuantity());
-		
-		re=new ResponseEntity<Trade>(t,HttpStatus.OK);
-		int info = trade.getTradeId();
-		scm.sendUpdateMessage(info);
-		
-	} catch (EntityNotFoundException e) {
-		re=new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
-	}
-	
-	return re;
-} 
+
 
 }
 
