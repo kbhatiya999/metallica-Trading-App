@@ -119,7 +119,7 @@ public ResponseEntity<Trade> updateTrade(@RequestBody Trade trade)
 		
 		re=new ResponseEntity<Trade>(t,HttpStatus.OK);
 		int info = trade.getTradeId();
-		scm.sendUpdateMessage(info);
+		//scm.sendUpdateMessage(info);
 		
 	} catch (EntityNotFoundException e) {
 		re=new ResponseEntity<>(null,HttpStatus.NOT_FOUND);

@@ -8,4 +8,6 @@ import com.tango.metallica.trade.enitity.Location;
 
 public interface LocationRepo extends JpaRepository<Location, Integer>{
 
+	public Location findLocationByLocationId(int id);
+
 }
