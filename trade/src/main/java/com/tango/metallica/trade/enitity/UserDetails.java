@@ -10,6 +10,22 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class UserDetails implements Serializable {
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("UserDetails [name=");
+		builder.append(name);
+		builder.append(", phoneNumber=");
+		builder.append(phoneNumber);
+		builder.append(", email=");
+		builder.append(email);
+		builder.append(", location=");
+		builder.append(location);
+		builder.append(", userId=");
+		builder.append(userId);
+		builder.append("]");
+		return builder.toString();
+	}
 	private String name; 
 	private String phoneNumber;
 	private String email;

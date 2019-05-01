@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tango.metallica.notifications.SendInventoryMsgs;
 import com.tango.metallica.trade.enitity.Inventory;
 import com.tango.metallica.trade.enitity.Trade;
 import com.tango.metallica.trade.enitity.UserDetails;
@@ -31,7 +32,7 @@ public class InventoryRestController {
 	InventoryRepo inventoryRepo;
 	@Autowired
 	UserDetailsRepo userDetailsRepo;
-		
+	SendInventoryMsgs sim = new SendInventoryMsgs();	
 	@RequestMapping(path="/allinventory", method=RequestMethod.GET)
 	public List<Inventory> findAllInventory(){
 		List<Inventory> result = inventoryRepo.findAll();
@@ -60,11 +61,13 @@ public class InventoryRestController {
 		        	Inventory i=inventoryRepo.getOne(old.getInventoryId());
 		        	i.setQuantity(i.getQuantity()+inventory.getQuantity());
 		        	re = new ResponseEntity<>(HttpStatus.CREATED);
+		        	sim.sendCreateInventoryMessage(old.getInventoryId());
 		        }
 		        else
 		        {
 		        	inventoryRepo.save(inventory);
 		        	re = new ResponseEntity<>(HttpStatus.CREATED);
+		        	sim.sendCreateInventoryMessage(inventory.getInventoryId());
 		        }
 				
 
